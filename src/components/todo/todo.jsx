@@ -1,56 +1,80 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form.jsx';
 
+import Header from './Header/index.jsx';
+import Footer from './Footer/index.jsx';
+import List from './List/index.jsx';
+import {ListContext} from '../../context/ListContext.jsx';
+import { useContext } from 'react';
+
+
+
 import { v4 as uuid } from 'uuid';
 
 const ToDo = () => {
 
-  const [defaultValues] = useState({
-    difficulty: 4,
-  });
-  const [list, setList] = useState([]);
-  const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+  // const [defaultValues] = useState({
+  //   difficulty: 4,
+  // });
+  // const [list, setList] = useState([]);
+  // const [incomplete, setIncomplete] = useState([]);
+  // const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
-  function addItem(item) {
-    item.id = uuid();
-    item.complete = false;
-    console.log(item);
-    setList([...list, item]);
-  }
+  // function addItem(item) {
+  //   item.id = uuid();
+  //   item.complete = false;
+  //   console.log(item);
+  //   setList([...list, item]);
+  // }
 
-  function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
-    setList(items);
-  }
+  // function deleteItem(id) {
+  //   const items = list.filter( item => item.id !== id );
+  //   setList(items);
+  // }
 
-  function toggleComplete(id) {
+  // function toggleComplete(id) {
 
-    const items = list.map( item => {
-      if ( item.id == id ) {
-        item.complete = ! item.complete;
-      }
-      return item;
-    });
+  //   const items = list.map( item => {
+  //     if ( item.id == id ) {
+  //       item.complete = ! item.complete;
+  //     }
+  //     return item;
+  //   });
 
-    setList(items);
+  //   setList(items);
 
-  }
+  // }
 
+  // useEffect(() => {
+  //   let incompleteCount = list.filter(item => !item.complete).length;
+  //   setIncomplete(incompleteCount);
+  //   document.title = `To Do List: ${incomplete}`;
+  // }, [list]);
+
+  // useEffect( () => {
+  //   incompleteCount(list);
+  //   document.title = `To Do List: ${incomplete}`;
+  // } , [list]);
+
+  const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues } = useContext(ListContext);
+
+    const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+
+  
   useEffect(() => {
-    let incompleteCount = list.filter(item => !item.complete).length;
-    setIncomplete(incompleteCount);
+    incompleteCount(list);
     document.title = `To Do List: ${incomplete}`;
   }, [list]);
 
   return (
     <>
-      <header>
+      {/* <header>
         <h1>To Do List: {incomplete} items pending</h1>
-      </header>
+      </header> */}
+      <Header incomplete={incomplete} />
 
       <form onSubmit={handleSubmit}>
-
+ 
         <h2>Add To Do Item</h2>
 
         <label>
@@ -73,15 +97,19 @@ const ToDo = () => {
         </label>
       </form>
 
-      {list.map(item => (
+      {/* {list.map(item => (
         <div key={item.id}>
           <p>{item.text}</p>
           <p><small>Assigned to: {item.assignee}</small></p>
           <p><small>Difficulty: {item.difficulty}</small></p>
           <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+          <button onClick={() => deleteItem(item.id)}>Delete</button>
           <hr />
         </div>
-      ))}
+      ))} */}
+      <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+      <Footer />
+
 
     </>
   );

@@ -10,7 +10,7 @@ const useForm = (callback, defaultValues={}) => {
   };
 
   const handleChange = (event) => {
-    event.persist();
+    event.persist();//this is a react thing, it allows us to use the event later
 
     let { name, value } = event.target;
     if (parseInt(value)) {
