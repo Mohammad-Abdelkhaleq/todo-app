@@ -11,3 +11,12 @@ Currently, two official plugins are available:
 ![Alt text](image.png)
 
 ![Alt text](image-1.png)
+
+
+<hr>
+
+the result after adding the filter 
+
+![Alt text](image-4.png)
+
+![Alt text](image-5.png)

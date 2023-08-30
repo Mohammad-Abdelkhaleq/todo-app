@@ -13,15 +13,20 @@
 // ReactDOM.render(<Main />, rootElement);
 
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './app.jsx'; // Make sure the file extension is correct
+import ReactDOM from 'react-dom';
+import { BrowserRouter} from "react-router-dom";
 
-const rootElement = document.getElementById('root');
-
-const root = ReactDOM.createRoot(rootElement);
+import App from './app.jsx';
 
 function Main() {
-  return <App />;
+  return (
+  <BrowserRouter>
+  <App />
+  </BrowserRouter>
+  
+  
+  )
 }
 
-root.render(<Main />);
+const rootElement = document.getElementById('root');
+ReactDOM.render(<Main />, rootElement);
