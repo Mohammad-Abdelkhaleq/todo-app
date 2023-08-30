@@ -1,6 +1,7 @@
 
 import {ListContext} from '../../../context/ListContext.jsx';
 import { useContext } from 'react';
+import {Link} from 'react-router-dom';
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -63,6 +64,7 @@ function ResponsiveAppBar() {
           >
             ToDO List : {incomplete} items pending
           </Typography>
+          <Button component={Link} to="/settings" color="inherit" variant="outlined"  style={{marginLeft:'30%'}}  sx={{ mr: 2 }}><AdbIcon sx={{ mr: 1 }} />Settings</Button>
 
         </Toolbar>
       </Container>

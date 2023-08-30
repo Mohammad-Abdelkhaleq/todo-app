@@ -4,7 +4,8 @@ import Pagination from '@mui/material/Pagination';
 
 function List(props) {
 
-    const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues } = useContext(ListContext);
+    const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues, itemsPerPage, setItemsPerPage, difficulty,setDifficulty, includeCompleted,
+        setIncludeCompleted } = useContext(ListContext);
 
     const [pagenumb, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(3);
@@ -17,10 +18,16 @@ function List(props) {
 
 // hide completed items
 
-    let filteredList = list.filter(item => !item.complete);
+    let filteredListByDifficulty = list.filter(item => item.difficulty == difficulty);
+    let filteredList = [];
+    if (!includeCompleted) {
+         filteredList = filteredListByDifficulty.filter(item => !item.complete);
+
+    }else{
+         filteredList = filteredListByDifficulty;}
 
     let devidedPerPage = [];
-    let elementPerPage = 3;
+    let elementPerPage = itemsPerPage;
     let i = 0;
 
     while (i < list.length) {

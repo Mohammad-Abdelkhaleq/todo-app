@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form.jsx';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from './Header/index.jsx';
 import Footer from './Footer/index.jsx';
+import Settings from './SettingsPage/index.jsx';
 import List from './List/index.jsx';
 import {ListContext} from '../../context/ListContext.jsx';
 import { useContext } from 'react';
@@ -56,7 +58,8 @@ const ToDo = () => {
   //   document.title = `To Do List: ${incomplete}`;
   // } , [list]);
 
-  const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues } = useContext(ListContext);
+  const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues,includeCompleted,
+    setIncludeCompleted } = useContext(ListContext);
 
     const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
@@ -107,7 +110,11 @@ const ToDo = () => {
           <hr />
         </div>
       ))} */}
-      <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+      <Routes>
+      {/* <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} /> */}
+      <Route path="/" element={<List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />} />
+      <Route path="/settings" element={<Settings />} />
+      </Routes>
       <Footer />
 
 
