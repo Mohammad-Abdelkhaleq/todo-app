@@ -1,7 +1,7 @@
 
-import {ListContext} from '../../../context/ListContext.jsx';
+import { ListContext } from '../../../context/ListContext.jsx';
 import { useContext } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -23,7 +23,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
 
-  const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues } = useContext(ListContext);
+  const { addItem, deleteItem, toggleComplete, list, incompleteCount, incomplete, defaultValues, isloggedin, setIsloggedin, openLogginForm, setOpenLogginForm, openSignupForm, setOpenSignupForm, } = useContext(ListContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -64,7 +64,11 @@ function ResponsiveAppBar() {
           >
             ToDO List : {incomplete} items pending
           </Typography>
-          <Button component={Link} to="/settings" color="inherit" variant="outlined"  style={{marginLeft:'30%'}}  sx={{ mr: 2 }}><AdbIcon sx={{ mr: 1 }} />Settings</Button>
+          <Button component={Link} to="/settings" color="inherit" variant="outlined" style={{ marginLeft: '10%' }} sx={{ mr: 2 }}><AdbIcon sx={{ mr: 1 }} />Settings</Button>
+
+          <Button onClick={() => setIsloggedin(false) } color="inherit" variant="outlined" style={{ marginLeft: '10%' }} sx={{ mr: 2 }}>log out</Button>
+
+          
 
         </Toolbar>
       </Container>

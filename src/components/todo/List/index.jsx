@@ -1,6 +1,7 @@
 import { ListContext } from "../../../context/ListContext";
 import { useContext, useState } from "react";
 import Pagination from '@mui/material/Pagination';
+import Auth from "../../../Auth/Auth";
 
 function List(props) {
 
@@ -36,6 +37,8 @@ function List(props) {
         i += elementPerPage;
     }
 
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',list);
+
     return (
         <>
             <div style={{ height: '50vh', overflow: 'auto', margin: '2em' }}>
@@ -49,10 +52,12 @@ function List(props) {
                             <p>
                                 <small>Difficulty: {item.difficulty}</small>
                             </p>
+                            <Auth capability="admin">
                             <div onClick={() => toggleComplete(item.id)}>
                                 Complete: {item.complete.toString()}
                             </div>
                             <button onClick={() => deleteItem(item.id)}>Delete</button>
+                            </Auth>
                             <hr />
                         </div>
                     ))}
