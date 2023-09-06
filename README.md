@@ -20,3 +20,19 @@ the result after adding the filter
 ![Alt text](image-4.png)
 
 ![Alt text](image-5.png)
+
+
+log in page 
+
+simple user example 
+![Alt text](image-6.png)
+
+you cant delete or complete 
+![Alt text](image-7.png)
+
+
+admin example 
+![Alt text](image-8.png)
+
+you can complete and delete 
+![Alt text](image-9.png)
