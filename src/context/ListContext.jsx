@@ -16,6 +16,11 @@ export default function ListProvider(props) {
     const [itemsPerPage, setItemsPerPage] = useState(3);
     const [difficulty, setDifficulty] = useState(1);
     const [includeCompleted, setIncludeCompleted] = useState(false);
+    const [isloggedin, setIsloggedin] = useState(false);
+    const [openLogginForm, setOpenLogginForm] = useState(false);
+    const [openSignupForm, setOpenSignupForm] = useState(false);
+    const [userData, setUserData] = useState({}); 
+    const [userType, setUserType] = useState('user');
 
     const state = {
         list,
@@ -32,8 +37,18 @@ export default function ListProvider(props) {
         difficulty,
         setDifficulty,
         includeCompleted,
-        setIncludeCompleted
-
+        setIncludeCompleted,
+        isloggedin,
+        setIsloggedin,
+        openLogginForm,
+        setOpenLogginForm,
+        openSignupForm,
+        setOpenSignupForm,
+        userData,
+        setUserData,
+        userType,
+        setUserType,
+        
     }
 
     function addItem(item) {
