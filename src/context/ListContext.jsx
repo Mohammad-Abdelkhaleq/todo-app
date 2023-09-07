@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 export const ListContext = React.createContext();
 import { v4 as uuid } from 'uuid';
-import { Axios } from 'axios';
+import axios from 'axios';
 
 export default function ListProvider(props) {
 
@@ -33,7 +33,7 @@ export default function ListProvider(props) {
     const [defaultValues] = useState({
         difficulty: 4,
     });
-    const [list, setList] = useState(mockData);
+    const [list, setList] = useState([]);
 
     const [incomplete, setIncomplete] = useState([]);
 
@@ -51,6 +51,37 @@ export default function ListProvider(props) {
 
 
 
+    async function toDos() {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+        console.log(response.data);
+        const convertedTasks = convertTasks(response.data);
+        setList(convertedTasks);
+
+    }
+
+    function convertTasks(tasks) {
+        const convertedTasks = [];
+    
+        tasks.forEach(task => {
+            if (task && task.title !== undefined && task.completed !== undefined) {
+                const convertedTask = {
+                    difficulty: 1,
+                    text: task.title,
+                    assignee: 'developer',
+                    id: uuid(),
+                    complete: false,
+                };
+    
+                convertedTasks.push(convertedTask);
+            }
+        });
+    
+        return convertedTasks;
+    }
+
+    useEffect(() => {
+        toDos();
+    }, []);
     
 
 
