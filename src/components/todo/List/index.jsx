@@ -19,6 +19,8 @@ function List(props) {
 
 // hide completed items
 
+
+
     let filteredListByDifficulty = list.filter(item => item.difficulty == difficulty);
     let filteredList = [];
     if (!includeCompleted) {
@@ -37,7 +39,7 @@ function List(props) {
         i += elementPerPage;
     }
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',list);
+    
 
     return (
         <>

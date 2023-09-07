@@ -2,8 +2,33 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 export const ListContext = React.createContext();
 import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 
 export default function ListProvider(props) {
+
+    const mockData = [
+        {
+            "difficulty": 1,
+            "text": "Task 1",
+            "assignee": "Alice",
+            "id": "3d55bd6c-11f1-491e-a786-81df934fafd0",
+            "complete": false
+        },
+        {
+            "difficulty": 1,
+            "text": "Task 2",
+            "assignee": "Bob",
+            "id": "6a9e2b42-ef81-4e76-b5e9-35e30cf7e814",
+            "complete": false
+        },
+        {
+            "difficulty": 1,
+            "text": "Task 3",
+            "assignee": "Charlie",
+            "id": "8b1b2a53-73b2-4e6f-b6c7-9f7fda6a1c17",
+            "complete": false
+        }
+    ]
 
     const [defaultValues] = useState({
         difficulty: 4,
@@ -19,8 +44,47 @@ export default function ListProvider(props) {
     const [isloggedin, setIsloggedin] = useState(false);
     const [openLogginForm, setOpenLogginForm] = useState(false);
     const [openSignupForm, setOpenSignupForm] = useState(false);
-    const [userData, setUserData] = useState({}); 
+    const [userData, setUserData] = useState({});
     const [userType, setUserType] = useState('user');
+    const [signedUpUsers, setSignedUpUsers] = useState([]);
+
+
+
+
+    async function toDos() {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+        console.log(response.data);
+        const convertedTasks = convertTasks(response.data);
+        setList(convertedTasks);
+
+    }
+
+    function convertTasks(tasks) {
+        const convertedTasks = [];
+    
+        tasks.forEach(task => {
+            if (task && task.title !== undefined && task.completed !== undefined) {
+                const convertedTask = {
+                    difficulty: 1,
+                    text: task.title,
+                    assignee: 'developer',
+                    id: uuid(),
+                    complete: false,
+                };
+    
+                convertedTasks.push(convertedTask);
+            }
+        });
+    
+        return convertedTasks;
+    }
+
+    useEffect(() => {
+        toDos();
+    }, []);
+    
+
+
 
     const state = {
         list,
@@ -48,7 +112,9 @@ export default function ListProvider(props) {
         setUserData,
         userType,
         setUserType,
-        
+        signedUpUsers,
+        setSignedUpUsers,
+
     }
 
     function addItem(item) {
@@ -88,7 +154,7 @@ export default function ListProvider(props) {
         // localStorage.setItem('itemsPerPage', itemsPerPage);
         // localStorage.setItem('difficulty', difficulty);
         // localStorage.setItem('includeCompleted', JSON.stringify(includeCompleted));
-    
+
         // Retrieve values from local storage
         const storedItemsPerPage = localStorage.getItem('itemsPerPage');
         const storedDifficulty = localStorage.getItem('difficulty');
@@ -97,7 +163,7 @@ export default function ListProvider(props) {
         console.log('storedItemsPerPage', storedItemsPerPage);
         console.log('storedDifficulty', storedDifficulty);
         console.log('storedIncludeCompleted', storedIncludeCompleted);
-    
+
         // Update state variables with stored values
         if (storedItemsPerPage) {
             setItemsPerPage(parseInt(storedItemsPerPage));
@@ -109,7 +175,7 @@ export default function ListProvider(props) {
             setIncludeCompleted(storedIncludeCompleted);
         }
     }, [itemsPerPage, difficulty, includeCompleted]);
-    
+
 
     return (
         <ListContext.Provider value={state}>
