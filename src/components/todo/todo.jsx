@@ -8,6 +8,7 @@ import Settings from './SettingsPage/index.jsx';
 import List from './List/index.jsx';
 import BasicModal from './LoginForm/LoginForm.jsx';
 import Auth from '../../Auth/Auth.jsx';
+import SignUp from '../signUpForm/Signup.jsx';
 import { ListContext } from '../../context/ListContext.jsx';
 import { useContext } from 'react';
 
@@ -72,7 +73,11 @@ const ToDo = () => {
 
   return (
     <>
-    {!isloggedin &&<BasicModal />}
+    {/* {!isloggedin &&<BasicModal />} */}
+    <Routes>
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/" element={!isloggedin &&<BasicModal />} />
+    </Routes>
       {/* <header>
         <h1>To Do List: {incomplete} items pending</h1>
       </header> */}
@@ -121,6 +126,7 @@ const ToDo = () => {
           {/* <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} /> */}
           <Route path="/" element={<List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />} />
           <Route path="/settings" element={<Settings />} />
+
         </Routes>
         {/* <BasicModal /> */}
         <Footer />
